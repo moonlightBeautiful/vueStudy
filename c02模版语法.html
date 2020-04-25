@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <input type="text" v-model="message" value="插我吧">
+        <h2>插值</h2>
+        <p>{{message}}</p>
+        <h2>v-once 指令，一次性插值</h2>
+        <p v-once>{{message}}</p>
+        <h2>v-html 指令，解析html标签插值</h2>
+        <p v-html="message"></p>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-bind 指令，属性绑定</h2>
+        <div v-bind:id="dynamicId">22</div>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-on 指令，事件绑定</h2>
+        <h2>事件绑定</h2>
+        <button v-on:click="doSomething">按钮1</button>
+    </div>
+    <hr/>
+    <div>
+        <h2>"{"{" 只能是单个js表达式 "}"}"</h2>
+        {{ number + 1 }}<br/>
+        {{ ok ? 'YES' : 'NO' }}<br/>
+        {{ info.split(' ').reverse().join(',').toUpperCase() }}
+    </div>
+    <hr/>
+    <div>
+        <h2>:，属性绑定缩写</h2>
+        <a :href="url">java知识分享网2</a>
+        <h2>@，事件绑定缩写</h2>
+        <button @click="doSomething2">按钮2</button>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            message: '<font color="red">呵呵</font>',
+            dynamicId: 3,
+            isButtonDisabled: false,
+            number: 2,
+            ok: false,
+            info: 'a b c',
+            url: 'http://www.java1234.com'
+        },
+        methods: {
+            doSomething() {
+                alert('点我干嘛')
+            },
+            doSomething2() {
+                alert("又点我")
+            }
+        }
+    })
+</script>
