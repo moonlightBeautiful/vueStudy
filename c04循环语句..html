@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>循环语句</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <h2>列表遍历</h2>
+        <ul>
+            <li v-for="(item,index) in items">
+                {{index}}-{{item.name}}
+            </li>
+        </ul>
+    </div>
+    <hr/>
+    <div>
+        <h2>列表对象</h2>
+        <ul>
+            <li v-for="(value,name,index) in object">
+                {{index}}-{{name}}-{{value}}
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            items: [
+                {name: '北京'},
+                {name: '南京'},
+                {name: '东京'}
+            ],
+            object: {
+                title: 'How to do lists in Vue',
+                author: 'Jane Doe',
+                publishedAt: '2016-04-10'
+            }
+        }
+    })
+</script>

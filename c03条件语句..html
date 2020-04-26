@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件语句</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <h2>v-if</h2>
+        <p v-if="awesome">Vue很厉害!</p>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-if + v-else</h2>
+        <p v-if="awesome">看见我了!</p>
+        <p v-else>看不见我 😢</p>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-if + v-else-if + v-else</h2>
+        <p v-if="type === 'A'">
+            A
+        </p>
+        <p v-else-if="type === 'B'">
+            B
+        </p>
+        <p v-else-if="type === 'C'">
+            C
+        </p>
+        <p v-else>
+            看不见 😢 A/B/C
+        </p>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-if + v-else + template 默认复用已有元素</h2>
+        <template v-if="loginType1 === 'username1'">
+            <label>Username1</label>
+            <input placeholder="Enter your username">
+        </template>
+        <template v-else>
+            <label>Email1</label>
+            <input placeholder="Enter your email address">
+        </template>
+        <button @click="toggle1()">toggle</button>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-if + v-else + template + key 元素是完全独立的，不要复用</h2>
+        <template v-if="loginType2 === 'username2'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username2-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email2-input">
+        </template>
+        <button @click="toggle2()">toggle</button>
+    </div>
+    <hr/>
+    <div>
+        <h2>v-show 切换元素的 CSS 属性 display</h2>
+        <h1 v-show="ok">Hello!</h1>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            awesome: true,
+            ok: true,
+            type: 'D',
+            loginType1: 'username1',
+            loginType2: 'username2'
+        },
+        methods: {
+            toggle1() {
+                this.loginType1 = this.loginType1 == 'username1' ? 'email1' : 'username1'
+            },
+            toggle2() {
+                this.loginType2 = this.loginType2 == 'username2' ? 'email2' : 'username2'
+            }
+        }
+    })
+</script>
