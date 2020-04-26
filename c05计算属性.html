@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <h2>无计算属性 模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。</h2>
+        <p>{{ message.split('').reverse().join('') }}</p>
+    </div>
+    <hr/>
+    <div>
+        <h2>computed 计算属性 任何复杂逻辑，你都应当使用计算属性</h2>
+        <div>
+            <p>Original message: "{{ message }}"</p>
+            <p>Computed reversed message: "{{ reversedMessage }}"</p>
+            <p>vm.reversedMessage 的值始终取决于 vm.message 的值。vm.message 变化，vm.reversedMessage从新计算。 </p>
+            <button @click="change()">改变message值</button>
+        </div>
+    </div>
+    <hr/>
+    <div>
+        <h2>计算属性缓存 vs 方法（使用方法同样可以达到计算属性效果，但是没有缓存）</h2>
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Methods reversed message: "{{ reversedMessage2() }}"</p>
+        <p>Methods reversed message: "{{ reversedMessage2() }}"</p>
+    </div>
+    <hr/>
+    <div>
+        <h2>计算属性 set</h2>
+        <p>Computed reversed message: "{{ reversedInfo }}"</p>
+        <button @click="change2()">改变</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let count = 1;
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello',
+            info: 'Hello'
+        },
+        computed: {
+            // 计算属性的 getter，`this` 指向 vm 实例
+            reversedMessage() {
+                count++;
+                return count + '' + this.message.split('').reverse().join('')
+            },
+            reversedInfo: {
+                get() {
+                    console.log('调用了info getter');
+                    return this.info.split('').reverse().join('')
+                },
+                set(newValue) {
+                    this.info = newValue;
+                    console.log(newValue);
+                    console.log('重新做一些计算处理');
+                }
+            }
+        },
+        methods: {
+            change() {
+                this.message = '我改变了，计算属性的 getter 方法返回的值从新计算。';
+            },
+            change2() {
+                vm.reversedInfo = "方法调用computed属性set";
+            },
+            reversedMessage2() {
+                count++;
+                return count + '' + this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+</body>
+</html>
